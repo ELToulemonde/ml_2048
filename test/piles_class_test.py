@@ -5,7 +5,6 @@ import unittest
 
 
 class PilesTest(unittest.TestCase):
-	# Test internal function _sort_piles
 	def test_moove(self):
 		my_piles = piles()
 		my_piles.append(pile([1, 1, 0, 0]))

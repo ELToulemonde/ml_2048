@@ -7,5 +7,5 @@ setup(name='ml_2048',
       author_email='el.toulemonde@protonmail.com',
       license='MIT',
       test_suite="tests",
-      packages=['game'],
+      packages=['game', "players", "simulator"],
       zip_safe=False)
