@@ -2,6 +2,9 @@ import numpy as np
 class pile():
 	"""A pile is a list of element with a moove function"""
 	def __init__(self, value = []):
+		"""Initialization function for pile. 
+		A list can be provided in order to initalize pile to something
+		"""
 		self.pile = value
 
 	def append(self, value):
