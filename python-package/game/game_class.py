@@ -6,6 +6,7 @@ Created on Fri May 18 14:53:40 2018
 """
 import numpy as np
 import random
+from .piles_class import pile, piles
 class game:
     # Init function
     # --------------
@@ -14,11 +15,58 @@ class game:
         self.proba_of_4 = proba_of_4
         self.__grid = np.zeros((grid_size, grid_size))
         self.__add_digit()
-
+        self.__directions = {"down": (0, range(self.__grid.shape[0] - 1, -1, -1)),
+                             "up": (0, range(self.__grid.shape[0])),
+                             "left": (1, range(self.__grid.shape[1] - 1, -1, -1)),
+                             "right": (1, range(self.__grid.shape[1]))
+                             }
     # Getter
     # ------
     def get_grid(self):
         return(self.__user_grid())
+
+    # Moove
+    # -----
+    def moove(self, direction):
+        """
+        Perform a moove on grid
+        """
+        # Sanity check
+        if direction not in ["up", "right", "left", "down"]:
+            raise ValueError("direction should be one of left, right, up, down")
+        # Perform moove
+        _piles = self.__build_piles(direction)
+        _piles.moove()
+        _store_grid = np.copy(self.__grid)
+        self.__apply_piles(_piles, direction)
+        # To-do comparing grid might not be the fastest, could we control the _piles?
+        if np.any(_store_grid != self.__grid): # If moove changed something change add random digit
+            # Add a random digit
+            self.__add_digit()
+        # else do nothing
+
+    def __apply_piles(self, _piles, direction):
+        if self.__directions[direction][0] == 0:
+            for j in range(0, self.__grid.shape[1]):
+                _pile = _piles.piles[j]
+                self.__grid[self.__directions[direction][1], j] = _pile.pile
+        else:
+            for i in range(0, self.__grid.shape[0]):
+                _pile = _piles.piles[i]
+                self.__grid[i, self.__directions[direction][1]] = _pile.pile
+
+    def __build_piles(self, direction):
+        "Build a list of list considered as piles"
+        _piles = piles()
+        if self.__directions[direction][0] == 0:
+            for j in range(0, self.__grid.shape[1]):
+                _pile = pile(self.__grid[self.__directions[direction][1], j])
+                _piles.append(_pile)
+        else:
+            for i in range(0, self.__grid.shape[0]):
+                _pile = pile(self.__grid[i, self.__directions[direction][1]])
+                _piles.append(_pile)
+        return(_piles)
 
     ## User grid
     # -----------
@@ -44,9 +92,29 @@ class game:
     def print(self):
         print(self.__user_grid())
         
+    def largest(self):
+        return(2 ** np.max(self.__grid, axis = (0,1)))
+
+    def win(self, objectif = 2048):
+        """Player won if he reached objectif"""
+        return(self.largest() == objectif)
+
+    def lost(self):
+        """Player as lost if no moove change something"""
+        lost = True
+        for direction in ["up", "right", "left", "down"]:
+            _piles = self.__build_piles(direction)
+            _piles.moove()
+            if self.__build_piles(direction) != _piles:
+                lost = False
+        return(lost)
+
 
         
 if __name__ == "__main__":
     g = game()
     g.print()
     
+## All list
+#-----------
+__all__ = ["game"]
