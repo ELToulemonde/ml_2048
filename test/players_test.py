@@ -19,5 +19,9 @@ class PlayersTest(unittest.TestCase):
 		g._game__grid = np.array([[2, 2, 0, 0],  [2, 0, 0, 0], [4, 0, 0, 4], [0, 0, 0, 0]])
 		self.assertTrue(direct_optimiser_player().strategie(g) == "left")
 
+	def test_weights_player(self):
+		g = game.game()
+		self.assertIsInstance(weights_player().strategie(g), str)
+
 if __name__ == '__main__':
     unittest.main()
