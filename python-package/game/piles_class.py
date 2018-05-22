@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 class pile():
 	"""A pile is a list of element with a moove function"""

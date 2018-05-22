@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import game
 import time
 def evaluator(strategie, n_max_moove = 2000):

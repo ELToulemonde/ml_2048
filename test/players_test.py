@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from players import *
 import unittest
 import game
@@ -17,3 +18,6 @@ class PlayersTest(unittest.TestCase):
 		g = game.game()
 		g._game__grid = np.array([[2, 2, 0, 0],  [2, 0, 0, 0], [4, 0, 0, 4], [0, 0, 0, 0]])
 		self.assertTrue(direct_optimiser_player().strategie(g) == "left")
+
+if __name__ == '__main__':
+    unittest.main()

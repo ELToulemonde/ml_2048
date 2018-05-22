@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from players import *
 from .evaluator import *
 
@@ -16,3 +17,7 @@ def benchmark(n_itr = 20):
 
 		print(str(player) + " perf: " + str(perf))
 		print(str(player) + " time: " + str(time))
+
+
+
+__all__ = ["benchmark"]

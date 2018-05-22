@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import game
 import numpy as np
 import random
@@ -79,9 +80,13 @@ class GameTest(unittest.TestCase):
 		self.assertTrue(g.largest() == 4)
 
 	def test_win(self):
+		# Set a winning grid
 		g = game.game()
 		g._game__grid = np.array([[11, 0, 3, 4],  [4, 3, 2, 1], [4, 3, 2, 1], [1, 2, 3, 4]])
+		# Control that it is victorious
 		self.assertTrue(g.win())
+		# Shoudl fail if not an integer
+		self.assertRaises(ValueError, g.win, "cdy")
 
 	def test_lost(self):
 		g = game.game()
@@ -89,3 +94,7 @@ class GameTest(unittest.TestCase):
 		g._game__grid = np.array([[1, 2, 3, 4],  [4, 3, 2, 1], [1, 2, 3, 4], [4, 3, 2, 1]])
 		print(g._game__grid)
 		self.assertTrue(g.lost())
+
+
+if __name__ == '__main__':
+    unittest.main()
