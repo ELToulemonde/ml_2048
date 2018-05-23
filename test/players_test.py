@@ -21,7 +21,7 @@ class PlayersTest(unittest.TestCase):
 
 	def test_weights_player(self):
 		g = game.game()
-		self.assertIsInstance(weights_player().strategie(g), str)
+		self.assertIsInstance(weights_player(np.random.random(size = (4,4)).strategie(g), str)
 
 if __name__ == '__main__':
     unittest.main()
